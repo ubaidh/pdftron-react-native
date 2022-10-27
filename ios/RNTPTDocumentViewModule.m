@@ -45,6 +45,21 @@ RCT_REMAP_METHOD(setToolMode,
         reject(@"set_tool_mode_failed", @"Failed to set tool mode", [self errorFromException:exception]);
     }
 }
+//  addAnnotations method
+RCT_REMAP_METHOD(addAnnotations,
+                 addAnnotationsForDocumentViewTag:(nonnull NSNumber *)tag
+                 annotations:(NSArray *)annotations
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        [[self documentViewManager] addAnnotationsForDocumentViewTag:tag annotations:annotations];
+        resolve(nil);
+    }
+    @catch (NSException *exception) {
+        reject(@"add_annotations_failed", @"Failed to add annotations", [self errorFromException:exception]);
+    }
+}
 
 RCT_REMAP_METHOD(commitTool,
                  commitToolForDocumentViewTag:(nonnull NSNumber *)tag

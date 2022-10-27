@@ -1481,6 +1481,40 @@ NS_ASSUME_NONNULL_END
     [toolManager changeTool:[PTPanTool class]];
 }
 
+-(void)addAnnotations:(NSArray *)annotations
+{
+    if (annotations.count == 0) {
+        return;
+    }
+    
+    PTDocumentBaseViewController *documentViewController = self.currentDocumentViewController;
+    PTPDFViewCtrl *pdfViewCtrl = documentViewController.pdfViewCtrl;
+    PTToolManager *toolManager = documentViewController.toolManager;
+    
+    for (id annotationData in annotations) {
+        if (![annotationData isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
+        NSDictionary *dict = (NSDictionary *)annotationData;
+        
+        NSString *xfdf = dict[PTXfdfKey];
+        if (!xfdf) {
+            continue;
+        }
+        
+        PTAnnotationManager * const annotationManager = documentViewController.toolManager.annotationManager;
+        
+        NSError *error;
+        const BOOL updateSuccess = [annotationManager updateAnnotationsWithXFDFString:xfdf
+                                                                                error:&error];
+        if (!updateSuccess || error) {
+            @throw [NSException exceptionWithName:NSGenericException reason:error.localizedFailureReason userInfo:error.userInfo];
+        }
+    }
+    
+    [toolManager changeTool:[PTPanTool class]];
+}
+
 #pragma mark - Saving
 
 - (void)saveDocumentWithCompletionHandler:(void (^)(NSString * _Nullable filePath))completionHandler

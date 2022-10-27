@@ -548,6 +548,15 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     }
     return Promise.resolve();
   }
+  addAnnotations = (annotations: Array<AnnotOptions.Annotation>): Promise<void> => {
+    const tag = findNodeHandle(this._viewerRef);
+    if (tag != null) {
+      return DocumentViewManager.addAnnotations(tag, annotations);
+    }
+    return Promise.resolve();
+  }
+  
+
 
   saveDocument = (): Promise<void | string> => {
     const tag = findNodeHandle(this._viewerRef);
@@ -556,6 +565,7 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     }
     return Promise.resolve();
   }
+
 
   setFlagForFields = (fields: Array<string>, flag: Config.FieldFlags, value: boolean): Promise<void> => {
     const tag = findNodeHandle(this._viewerRef);
