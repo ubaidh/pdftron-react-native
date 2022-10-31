@@ -444,6 +444,8 @@ static NSString * const PTSignaturesManager_signatureDirectory = @"PTSignaturesM
 @property (nonatomic, copy, nullable) NSArray<NSString *> *annotationMenuItems;
 
 @property (nonatomic, assign) BOOL pageChangeOnTap;
+@property (nonatomic, assign) BOOL pageChangeOnTap2;
+@property (nonatomic, assign) BOOL addAnnotationsEnabled;
 
 @property (nonatomic, assign, getter=isThumbnailViewEditingEnabled) BOOL thumbnailViewEditingEnabled;
 
@@ -579,6 +581,8 @@ static NSString * const PTSignaturesManager_signatureDirectory = @"PTSignaturesM
 - (void)setValuesForFields:(NSDictionary<NSString *, id> *)map;
 
 - (NSDictionary *)getField:(NSString *)fieldName;
+
+- (NSDictionary *)getField2:(NSString *)fieldName;
 
 - (void)setFlagsForAnnotations:(NSArray *)annotationFlagList;
 

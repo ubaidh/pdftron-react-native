@@ -21,6 +21,8 @@ import * as AnnotOptions from "../AnnotOptions/AnnotOptions";
  * Config.Buttons values", please use {@link oneOf} or {@link arrayOf}.
  */
 const propTypes = {
+  pageChangeOnTap2: PropTypes.bool,
+  addAnnotationEnabled: PropTypes.bool,
   document: PropTypes.string.isRequired,
   source: PropTypes.string,
   password: PropTypes.string,
@@ -555,9 +557,15 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     }
     return Promise.resolve();
   }
+
+  getField2 = (fieldName: string): Promise<void | AnnotOptions.Field> => {
+    const tag = findNodeHandle(this._viewerRef);
+    if (tag != null) {
+      return DocumentViewManager.getField(tag, fieldName);
+    }
+    return Promise.resolve();
+  }
   
-
-
   saveDocument = (): Promise<void | string> => {
     const tag = findNodeHandle(this._viewerRef);
     if (tag != null) {

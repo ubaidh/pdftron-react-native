@@ -373,8 +373,20 @@ RCT_CUSTOM_VIEW_PROPERTY(annotationMenuItems, NSArray, RNTPTDocumentView)
         view.annotationMenuItems = [RCTConvert NSArray:json];
     }
 }
+RCT_CUSTOM_VIEW_PROPERTY(addAnnotatiosnEnabled, BOOL, RNTPTDocumentView)
+{
+    if (json) {
+        view.addAnnotatiosnEnabled = [RCTConvert BOOL:json];
+    }
+}
 
 RCT_CUSTOM_VIEW_PROPERTY(pageChangeOnTap, BOOL, RNTPTDocumentView)
+{
+    if (json) {
+        view.pageChangeOnTap = [RCTConvert BOOL:json];
+    }
+}
+RCT_CUSTOM_VIEW_PROPERTY(pageChangeOnTap2, BOOL, RNTPTDocumentView)
 {
     if (json) {
         view.pageChangeOnTap = [RCTConvert BOOL:json];
@@ -1206,6 +1218,17 @@ RCT_CUSTOM_VIEW_PROPERTY(signatureColors, NSArray, RNTPTDocumentView)
     }
 }
 
+- (NSDictionary *)getFieldForDocumentViewTag:(NSNumber *)tag fieldName:(NSString *)fieldName
+{
+    RNTPTDocumentView *documentView = self.documentViews[tag];
+    if (documentView) {
+        return [documentView getField2:fieldName];
+    } else {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unable to find DocumentView for tag" userInfo:nil];
+        return nil;
+    }
+}
+ 
 - (void)setFlagsForAnnotationsForDocumentViewTag:(NSNumber *)tag annotationFlagList:(NSArray *)annotationFlagList
 {
     RNTPTDocumentView *documentView = self.documentViews[tag];

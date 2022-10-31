@@ -60,6 +60,20 @@ RCT_REMAP_METHOD(addAnnotations,
         reject(@"add_annotations_failed", @"Failed to add annotations", [self errorFromException:exception]);
     }
 }
+RCT_REMAP_METHOD(getField2,
+                 getFieldForDocumentViewTag:(nonnull NSNumber *)tag
+                 fieldName:(NSString *)fieldName
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSDictionary *field = [[self documentViewManager] getFieldForDocumentViewTag:tag fieldName:fieldName];
+        resolve(field);
+    }
+    @catch (NSException *exception) {
+        reject(@"set_value_for_fields", @"Failed to set value on fields", [self errorFromException:exception]);
+    }
+}
 
 RCT_REMAP_METHOD(commitTool,
                  commitToolForDocumentViewTag:(nonnull NSNumber *)tag
